@@ -5,7 +5,9 @@
     __asm__("mov x0, %0\n""mov x1, %1\n""mov x2, %2\n""mov x20, %3\n" : :"r"(v0), "r"(v1), "r"(v2), "r"(v3) :"x0", "x1", "x2", "x20"); ((void (*)())(func))();
 
 uint64_t get_dock_spaces_offset(NSOperatingSystemVersion os_version) {
-    if (os_version.majorVersion == 15) {
+    if (os_version.majorVersion == 26) {
+        return 0x200000;
+    } else if (os_version.majorVersion == 15) {
         return os_version.minorVersion >= 4 ? 0x1f0000 : 0x200000;
     } else if (os_version.majorVersion == 14) {
         return 0x114000;
@@ -33,7 +35,9 @@ uint64_t get_dppm_offset(NSOperatingSystemVersion os_version) {
 }
 
 uint64_t get_fix_animation_offset(NSOperatingSystemVersion os_version) {
-    if (os_version.majorVersion == 15) {
+    if (os_version.majorVersion == 26) {
+        return 0x250000;
+    } else if (os_version.majorVersion == 15) {
         return 0x250000;
     } else if (os_version.majorVersion == 14) {
         return 0x1D0000;
@@ -103,7 +107,9 @@ uint64_t get_set_front_window_offset(NSOperatingSystemVersion os_version) {
 }
 
 const char *get_dock_spaces_pattern(NSOperatingSystemVersion os_version) {
-    if (os_version.majorVersion == 15) {
+    if (os_version.majorVersion == 26) {
+        return "?? ?? ?? ?? ?? ?? ?? 91 ?? ?? ?? F9 ?? ?? ?? B4 ?? ?? ?? 94 F5 03 00 AA E0 03 17 AA";
+    } else if (os_version.majorVersion == 15) {
         return "?? 12 00 ?? ?? ?? ?? 91 ?? 02 40 F9 ?? ?? 00 B4 ?? ?? ?? ??";
     } else if (os_version.majorVersion == 14) {
         if (os_version.minorVersion > 0) {
@@ -137,7 +143,9 @@ const char *get_dppm_pattern(NSOperatingSystemVersion os_version) {
 }
 
 const char *get_fix_animation_pattern(NSOperatingSystemVersion os_version) {
-    if (os_version.majorVersion == 15) {
+    if (os_version.majorVersion == 26) {
+        return "00 10 6A 1E A8 ?? ?? D1 ?? 01 ?? F8";
+    } else if (os_version.majorVersion == 15) {
         return "00 10 6A 1E A8 ?? ?? D1 ?? 01 ?? F8";
     } else if (os_version.majorVersion == 14) {
         return "00 10 6A 1E E0 03 14 AA ?? 03 ?? AA";
